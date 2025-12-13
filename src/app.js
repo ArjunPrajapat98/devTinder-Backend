@@ -1,17 +1,17 @@
 import express from 'express';
-
 const app = express();
 
-app.use('/home', (req, res) => {
-    res.send('Home Route')
+app.get('/user', (req, res) => {
+    res.send({ firstname: 'Arjun', lastname: 'Prajapat' })
 })
 
-app.use('/dashboard', (req, res) => {
-    res.send('This is dashboard route')
+app.post('/user', (req, res) => {
+    // save data in database
+    res.send('Data saved in database')
 })
 
-app.use('/', (req, res) => {
-    res.send('Default Route')
+app.delete('/user', (req, res) => {
+    res.send('Data deleted successfully')
 })
 
 app.listen(3000, () => {
