@@ -1,19 +1,19 @@
 import express from 'express';
+
 const app = express();
+import { adminAuth, userAuth } from "./middleware/admin.js"
 
-app.get('/user', (req, res) => {
-    res.send({ firstname: 'Arjun', lastname: 'Prajapat' })
+app.use('/admin', adminAuth);
+
+
+app.get('/admin/user', (req, res) => {
+    res.send('Admin User data fetch successfully')
 })
 
-app.post('/user', (req, res) => {
-    // save data in database
-    res.send('Data saved in database')
-})
-
-app.delete('/user', (req, res) => {
-    res.send('Data deleted successfully')
+app.get('/user', userAuth, (req, res) => {
+    res.send('User data fetch succefully')
 })
 
 app.listen(3000, () => {
-    console.log('Port 3000 is working...')
+    console.log('Backend is working on port 3000')
 })
