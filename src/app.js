@@ -1,19 +1,24 @@
 import express from 'express';
+import { connectDB } from './config/database.js';
 
 const app = express();
-import { adminAuth, userAuth } from "./middleware/admin.js"
+import { adminAuth } from './config/middleware.js'
 
-app.use('/admin', adminAuth);
+app.use('/admin', adminAuth)
 
-
-app.get('/admin/user', (req, res) => {
-    res.send('Admin User data fetch successfully')
+app.get('/admin/getUser', (req, res) => {
+    try {
+        res.send('User data fetched successfully')
+    } catch (error) {
+        console.log('error', error)
+    }
 })
 
-app.get('/user', userAuth, (req, res) => {
-    res.send('User data fetch succefully')
-})
-
-app.listen(3000, () => {
-    console.log('Backend is working on port 3000')
+connectDB().then(() => {
+    console.log('Database connected successfully')
+    app.listen(4000, () => {
+        console.log('Server is working on Port 4000')
+    })
+}).catch((error) => {
+    console.log('Error : Database , Database not connected')
 })
