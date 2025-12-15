@@ -2,15 +2,25 @@ import express from 'express';
 import { connectDB } from './config/database.js';
 
 const app = express();
-import { adminAuth } from './config/middleware.js'
+import { UserModal } from './modals/user.js';
 
-app.use('/admin', adminAuth)
-
-app.get('/admin/getUser', (req, res) => {
+app.post('/signup', async (req, res) => {
     try {
-        res.send('User data fetched successfully')
+        let obj = {
+            "firstName": "Rahul",
+            "lastName": "Jain",
+            "dob": "1996/12/10",
+            "age": 26,
+            "email": "r1@gmail.com",
+            "password": "12345"
+        }
+        let userInstance = new UserModal(obj);
+        await userInstance.save();
+
+        res.status(201).send('User signup successfully')
+
     } catch (error) {
-        console.log('error', error)
+        res.status(400).send('Error in signup')
     }
 })
 
