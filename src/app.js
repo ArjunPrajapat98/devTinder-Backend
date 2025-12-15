@@ -4,16 +4,11 @@ import { connectDB } from './config/database.js';
 const app = express();
 import { UserModal } from './modals/user.js';
 
+app.use(express.json());
+
 app.post('/signup', async (req, res) => {
     try {
-        let obj = {
-            "firstName": "Rahul",
-            "lastName": "Jain",
-            "dob": "1996/12/10",
-            "age": 26,
-            "email": "r1@gmail.com",
-            "password": "12345"
-        }
+        let obj = req?.body
         let userInstance = new UserModal(obj);
         await userInstance.save();
 
