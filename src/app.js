@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.post('/signup', async (req, res) => {
     try {
-
         signupValidation(req);
 
         let obj = req?.body
@@ -80,33 +79,39 @@ app.delete('/userDelete', async (req, res) => {
     }
 })
 
-// app.patch('/updateUser', async (req, res) => {
-//     try {
-//         let latestData = req.body;
-//         let id = latestData?._id;
-//         let update = await UserModal.findByIdAndUpdate(id, latestData, { returnDocument: 'after' })
-//         res.send(update);
-//     } catch (error) {
-//         res.status(400).send('something went wrong')
-//     }
-// })
-
-app.patch('/updateUser', async (req, res) => {
+app.patch('/updateUser/:id', async (req, res) => {
     try {
-        let user = req.body;
-        let getEmail = req.body.email;
+        let { id } = req.params;
+        let data = req.body;
 
-        let findUser = await UserModal.updateOne({ email: getEmail },
-            {
-                $set: user,
-                $inc: { balance: 90 }
-            });
-        res.send(findUser);
-
+        let ALLOW_UPDATE = ["firstName", "lastName", "dob", "age", "photoUrl", "gender", "device", "skills"];
+        let is_ALLOW = Object.keys(data)?.every((el) => ALLOW_UPDATE.includes(el));
+        if(is_ALLOW){
+            
+        }
+        let update = await UserModal.findByIdAndUpdate(id, reqData, { returnDocument: 'after' })
+        res.send(update);
     } catch (error) {
         res.status(400).send('something went wrong')
     }
 })
+
+// app.patch('/updateUser', async (req, res) => {
+//     try {
+//         let user = req.body;
+//         let getEmail = req.body.email;
+
+//         let findUser = await UserModal.updateOne({ email: getEmail },
+//             {
+//                 $set: user,
+//                 $inc: { balance: 90 }
+//             });
+//         res.send(findUser);
+
+//     } catch (error) {
+//         res.status(400).send('something went wrong')
+//     }
+// })
 
 connectDB().then(() => {
     console.log('Database connected successfully')
