@@ -10,7 +10,7 @@ app.use(express.json());
 app.post('/signup', async (req, res) => {
     try {
         signupValidation(req);
-
+        
         let obj = req?.body
         let userInstance = new UserModal(obj);
         await userInstance.save();
@@ -83,16 +83,19 @@ app.patch('/updateUser/:id', async (req, res) => {
     try {
         let { id } = req.params;
         let data = req.body;
+        let { firstName, lastName, dob, age, photoUrl, gender, device, skills } = data;
 
         let ALLOW_UPDATE = ["firstName", "lastName", "dob", "age", "photoUrl", "gender", "device", "skills"];
-        let is_ALLOW = Object.keys(data)?.every((el) => ALLOW_UPDATE.includes(el));
-        if(is_ALLOW){
-            
+        let is_ALLOW = Object.keys(data)?.every((el) => ALLOW_UPDATE?.includes(el));
+        if (!is_ALLOW) {
+            res.status(400).send('Update not allow')
         }
-        let update = await UserModal.findByIdAndUpdate(id, reqData, { returnDocument: 'after' })
-        res.send(update);
+        let update = await UserModal.findByIdAndUpdate(id, {
+            firstName, lastName, dob, age, photoUrl, gender, device, skills
+        }, { returnDocument: 'after' })
+        res.send({ result: update, success: true });
     } catch (error) {
-        res.status(400).send('something went wrong')
+        res.status(400).send('something went wrong' + error)
     }
 })
 
