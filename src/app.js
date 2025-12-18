@@ -3,20 +3,64 @@ import { connectDB } from './config/database.js';
 
 const app = express();
 import { UserModal } from './modals/user.js';
-import { signupValidation } from './validation/validation.js';
+import { loginValidation, signupValidation } from './validation/validation.js';
+import bcrypt from 'bcrypt';
+import cookieParser from 'cookie-parser';
+import jwt from "jsonwebtoken"
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.post('/signup', async (req, res) => {
     try {
         signupValidation(req);
-        
-        let obj = req?.body
-        let userInstance = new UserModal(obj);
+        let { firstName, lastName, email, password } = req?.body
+
+        const isHashPassword = await bcrypt.hash(password, 10);
+
+        let userInstance = new UserModal({ firstName, lastName, email, password: isHashPassword });
         await userInstance.save();
 
         res.status(201).send('User signup successfully')
 
+    } catch (error) {
+        res.status(400).send('Error in signup' + error)
+    }
+})
+
+app.post("/login", async (req, res) => {
+    try {
+        let { email, password } = req.body;
+        loginValidation({ email, password });
+
+        let user = await UserModal.findOne({ email: email });
+        if (!user) {
+            res.status(404).send(`User not found with this ${email}`)
+        }
+        let decoded = await bcrypt.compare(password, user?.password);
+        if (decoded) {
+            let token = await jwt.sign({ _id: user?._id }, "Common@7070")
+            console.log('token', token)
+            res.cookie("token", token);
+            res.status(200).send("User login successfully")
+        }
+    } catch (error) {
+        res.status(400).send('Error in signup' + error)
+    }
+})
+
+app.get("/profile", async (req, res) => {
+    try {
+        let { token } = req.cookies;
+        let { _id } = await jwt.verify(token, "Common@7070");
+        if (!_id) {
+            res.status(404).send("Invalid token");
+        }
+        let user = await UserModal.findById(_id);
+        if (!user) {
+            res.status(404).send(`User not found, Please login first`)
+        }
+        res.status(200).send(user);
     } catch (error) {
         res.status(400).send('Error in signup' + error)
     }

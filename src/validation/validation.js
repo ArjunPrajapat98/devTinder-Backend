@@ -10,3 +10,13 @@ export const signupValidation = (req) => {
         throw new Error('Invalid creadentials')
     }
 }
+
+export const loginValidation = ({ email, password }) => {
+    if (!email) {
+        throw new Error('Email is Required')
+    } else if (!validator.isEmail(email)) {
+        throw new Error('Invalid creadentials')
+    } else if (!validator.isStrongPassword(password)) {
+        throw new Error('Invalid creadentials')
+    }
+}
