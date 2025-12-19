@@ -1,25 +1,40 @@
 import mongoose, { mongo } from "mongoose";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        minLength: 2, // [2, "Min Length 2 is Required"],
-        maxLength: 50, // [50, "Max Length 50 is Required"],
-        required: true, // [true, "Name is Required"],
-    },
-    lastName: {
-        type: String,
-    },
-    email: {
-        type: String,
-        lowercase: true,
-        trim: true,
-        unique: true, // [true, "Email id should be unique"],
-    },
-    password: {
-        type: String,
-    },
-}, { timestamps: true })
+const userSchema = new mongoose.Schema(
+    {
+        firstName: {
+            type: String,
+            minLength: 2, // [2, "Min Length 2 is Required"],
+            maxLength: 50, // [50, "Max Length 50 is Required"],
+            required: true, // [true, "Name is Required"],
+        },
+        lastName: {
+            type: String,
+        },
+        email: {
+            type: String,
+            lowercase: true,
+            trim: true,
+            unique: true, // [true, "Email id should be unique"],
+        },
+        password: {
+            type: String,
+        },
+    }, { timestamps: true })
+
+userSchema.methods.getJwt = async function () {
+    let user = this;
+    let result = await jwt.sign({ _id: user?._id }, "Common@7070");
+    return result;
+}
+
+userSchema.methods.compareHashPassword = async function (userPassword) {
+    let user = this;
+    let result = await bcrypt.compare(userPassword, user.password);
+    return result;
+}
 
 export const UserModal = mongoose.model('UserModal', userSchema)
 

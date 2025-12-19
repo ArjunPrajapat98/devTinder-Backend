@@ -7,6 +7,7 @@ import { loginValidation, signupValidation } from './validation/validation.js';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken"
+import { userAuth } from './config/middleware.js';
 
 app.use(express.json());
 app.use(cookieParser());
@@ -37,11 +38,10 @@ app.post("/login", async (req, res) => {
         if (!user) {
             res.status(404).send(`User not found with this ${email}`)
         }
-        let decoded = await bcrypt.compare(password, user?.password);
+        let decoded = await user.compareHashPassword(password);
         if (decoded) {
-            let token = await jwt.sign({ _id: user?._id }, "Common@7070")
-            console.log('token', token)
-            res.cookie("token", token);
+            let token = await user.getJwt();
+            res.cookie("token", token, { expires: new Date(Date.now() + 24 * 7 * 3600000) });
             res.status(200).send("User login successfully")
         }
     } catch (error) {
@@ -49,20 +49,21 @@ app.post("/login", async (req, res) => {
     }
 })
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
     try {
-        let { token } = req.cookies;
-        let { _id } = await jwt.verify(token, "Common@7070");
-        if (!_id) {
-            res.status(404).send("Invalid token");
-        }
-        let user = await UserModal.findById(_id);
-        if (!user) {
-            res.status(404).send(`User not found, Please login first`)
-        }
+        let { user } = req;
         res.status(200).send(user);
     } catch (error) {
         res.status(400).send('Error in signup' + error)
+    }
+})
+
+app.post('/sendRequest', userAuth, async (req, res) => {
+    try {
+        let { user } = req;
+        res.status(200).send(`${user.firstName} send request successfully`)
+    } catch (error) {
+        res.status(400).send('something went wrong' + error)
     }
 })
 
