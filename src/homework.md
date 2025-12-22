@@ -109,3 +109,15 @@
 - create a new send connection request API and add userAuth middleware,
 - set a expiry of jwt token now {expiresIn: 0} and cookies to 1 hour { expires: new Date(Date.now() + 1 * 3600000)}
 - create mongoose schema methods, getJwt, comparePassword
+
+- Explore tinder API's in terminal console
+- Create a list all API you can think of in dev Tinder
+- Group multiple routes under repective routers
+- Read documentation for express.Router
+- Create routes folder for managing auth, profile, request routers
+- Create authRouter, profileRouter, requestRouter
+- Import these routers in app.js
+- Create POST /logout API
+- Create PATCH /profile/edit
+- Create PATCH /profile/password API => forget password API
+- Make you validate all data in every post, patch
