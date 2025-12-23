@@ -39,6 +39,10 @@ requestRouter.post('/send/:status/:id', userAuth, async (req, res) => {
         })
 
     } catch (error) {
-        res.status(400).send('something went wrong' + error)
+        res.status(400).json({
+            message: error.message,
+            success: false,
+            error: error
+        })
     }
 })
