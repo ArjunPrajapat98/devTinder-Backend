@@ -30,7 +30,7 @@ userRouter.get('/userById', async (req, res) => {
 userRouter.get('/userByOne', async (req, res) => {
     let email = req?.body?.email;
     try {
-        let user = await UserModal.findOne({ email: email })
+        let user = await UserModal.findOne({ firstName: 'Arjun', lastName: 'Prajapat' })
 
         if (!user) {
             res.status(404).send('User not found')

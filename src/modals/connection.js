@@ -27,4 +27,6 @@ connectionSchema.pre('save', function () {
     }
 })
 
+// connectionSchema.index({ fromUserId: 1, toUserId: 1 })
+
 export const Connections = mongoose.model('Connections', connectionSchema);

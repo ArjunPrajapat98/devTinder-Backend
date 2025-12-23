@@ -36,6 +36,8 @@ userSchema.methods.compareHashPassword = async function (userPassword) {
     return result;
 }
 
+// userSchema.index({ firstName: 1, lastName: 1 })
+
 export const UserModal = mongoose.model('UserModal', userSchema)
 
 
