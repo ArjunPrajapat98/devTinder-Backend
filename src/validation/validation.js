@@ -21,14 +21,14 @@ export const loginValidation = ({ email, password }) => {
     }
 }
 
-export const sendRequestValidation = (request) => {
-    if (!request?.fromUserId) {
-        throw new Error('Invalid token, From User id is Required')
-    } else if (!request?.toUserId) {
-        throw new Error('To User id is Required')
-    } else if (!request?.status) {
-        throw new Error('Status is Required')
-    } else if (!['Interested', "Ignore"].includes(request?.status)) {
-        throw new Error('Invalid Status')
+export const sendRequestValidation = ({ fromUserId, toUserId, status }) => {
+    if (!fromUserId) {
+        throw new Error('Sender id is required')
+    } else if (!toUserId) {
+        throw new Error('Receiver id is required')
+    } else if (!status) {
+        throw new Error('Status is required')
+    } else if (!(['Ignore', 'Interested'].includes(status))) {
+        throw new Error('Invalid status')
     }
 }
