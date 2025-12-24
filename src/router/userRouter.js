@@ -1,7 +1,32 @@
 import express from 'express';
 import { UserModal } from '../modals/user.js';
+import { userAuth } from '../config/middleware.js';
+import { response } from '../helper/response.js';
+import { Connections } from '../modals/connection.js';
 
 export const userRouter = express.Router();
+
+userRouter.get('/request/received', userAuth, async (req, res) => {
+    try {
+        const connection = await Connections.find({
+            toUserId: req.user._id,
+            status: 'Interested'
+        })
+
+        response(res, 200, "Success", connection)
+    } catch (error) {
+        response(res, 400, error.message)
+    }
+})
+
+userRouter.get('/feed', async (req, res) => {
+    try {
+        const list = await UserModal.find({});
+        res.send(list);
+    } catch (error) {
+        res.status(400).send('something went wrong')
+    }
+})
 
 userRouter.get('/userByEmail', async (req, res) => {
     let email = req?.body?.email;
@@ -41,15 +66,6 @@ userRouter.get('/userByOne', async (req, res) => {
     }
 })
 
-userRouter.get('/feed', async (req, res) => {
-    try {
-        const list = await UserModal.find({});
-        res.send(list);
-    } catch (error) {
-        res.status(400).send('something went wrong')
-    }
-})
-
 userRouter.delete('/userDelete', async (req, res) => {
     let userId = req?.body?._id;
     try {
@@ -80,19 +96,19 @@ userRouter.patch('/updateUser/:id', async (req, res) => {
     }
 })
 
-// userRouter.patch('/updateUser', async (req, res) => {
-//     try {
-//         let user = req.body;
-//         let getEmail = req.body.email;
+userRouter.patch('/updateUser', async (req, res) => {
+    try {
+        let user = req.body;
+        let getEmail = req.body.email;
 
-//         let findUser = await UserModal.updateOne({ email: getEmail },
-//             {
-//                 $set: user,
-//                 $inc: { balance: 90 }
-//             });
-//         res.send(findUser);
+        let findUser = await UserModal.updateOne({ email: getEmail },
+            {
+                $set: user,
+                $inc: { balance: 90 }
+            });
+        res.send(findUser);
 
-//     } catch (error) {
-//         res.status(400).send('something went wrong')
-//     }
-// })
+    } catch (error) {
+        res.status(400).send('something went wrong')
+    }
+})
