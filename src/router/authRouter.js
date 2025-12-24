@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import { UserModal } from '../modals/user.js';
 import { userAuth } from '../config/middleware.js';
 import jwt from 'jsonwebtoken';
+import { response } from '../helper/response.js';
 
 authRouter.post('/signup', async (req, res) => {
     try {
@@ -15,12 +16,11 @@ authRouter.post('/signup', async (req, res) => {
         const isHashPassword = await bcrypt.hash(password, 10);
 
         let userInstance = new UserModal({ firstName, lastName, email, password: isHashPassword });
-        await userInstance.save();
+        let updateUser = await userInstance.save();
 
-        res.status(201).send('User signup successfully')
-
+        response(res, 201, 'User signup successfully', updateUser)
     } catch (error) {
-        res.status(400).send('Error in signup' + error)
+        response(res, 400, error.message)
     }
 })
 
@@ -37,10 +37,10 @@ authRouter.post("/login", async (req, res) => {
         if (decoded) {
             let token = await user.getJwt();
             res.cookie("token", token, { expires: new Date(Date.now() + 24 * 7 * 3600000) });
-            res.status(200).send("User login successfully")
+            response(res, 200, 'User login successfully')
         }
     } catch (error) {
-        res.status(400).send('Error in signup' + error)
+        response(res, 400, error.message)
     }
 })
 

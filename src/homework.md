@@ -132,3 +132,14 @@
 - Read more about indexs in mongodb
 - Why do we need index in DB ?
 - What is the advantages and disavantages of creating index ?
+
+- Write a review reqeust POST Api with proper validation and corner cases.
+- Thought proccess of POST API is different and Thought proccess of GET API is different
+
+
+
+- all master list api firm id changes done
+- firm details page back button changes done,
+- all master add with add new issue fix,
+- add service remainder, remainder date issue fix,
+- sprints issue's work in progress,

@@ -17,7 +17,8 @@
 - POST /request/review/reject/:endUser
 
 ## userRouter
+- GET /user/request/received
+- GET /user/matchedConnection
 - GET /user/feed
-- GER /user/matchedConnection
 
 Ignore, Interested, Accept, Reject

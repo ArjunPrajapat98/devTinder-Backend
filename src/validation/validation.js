@@ -32,3 +32,15 @@ export const sendRequestValidation = ({ fromUserId, toUserId, status }) => {
         throw new Error('Invalid status')
     }
 }
+
+export const receiveRequestValidation = ({ fromUserId, toUserId, status }) => {
+    if (!fromUserId) {
+        throw new Error('Login user not found')
+    } else if (!toUserId) {
+        throw new Error('To user id is required')
+    } else if (!status) {
+        throw new Error('Status is required')
+    } else if (!(['Accept', 'Reject'].includes(status))) {
+        throw new Error('Invalid status')
+    }
+}
