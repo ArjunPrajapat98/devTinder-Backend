@@ -3,11 +3,13 @@ import mongoose from 'mongoose';
 const connectionSchema = new mongoose.Schema({
     fromUserId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Form User id is requierd']
+        required: [true, 'Form User id is requierd'],
+        ref: 'UserModal'
     },
     toUserId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'To User id is requierd']
+        required: [true, 'To User id is requierd'],
+        ref: 'UserModal'
     },
     status: {
         type: String,
@@ -27,6 +29,6 @@ connectionSchema.pre('save', function () {
     }
 })
 
-connectionSchema.index({ fromUserId: 1, toUserId: 1 });
+connectionSchema.index({ fromUserId: 1, toUserId: 1, status: 1 });
 
 export const Connections = mongoose.model('Connections', connectionSchema);

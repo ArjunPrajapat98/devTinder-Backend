@@ -12,10 +12,32 @@ userRouter.get('/request/received', userAuth, async (req, res) => {
             toUserId: req.user._id,
             status: 'Interested'
         })
+            .populate('fromUserId', 'firstName lastName')
+            .populate('toUserId', 'firstName lastName')
 
         response(res, 200, "Success", connection)
     } catch (error) {
         response(res, 400, error.message)
+    }
+})
+
+userRouter.get('/match-connection', userAuth, async (req, res) => {
+    try {
+        let loginUser = req.user._id;
+
+        const matchUser = await Connections.find({
+            status: 'Accept',
+            $or: [
+                { fromUserId: loginUser },
+                { toUserId: loginUser }
+            ]
+        }).populate('fromUserId', 'firstName lastName').populate('toUserId', 'firstName lastName')
+
+        const result = matchUser.map((el) => el.toUserId._id.equals(loginUser) ? el.fromUserId : el.toUserId)
+
+        response(res, 200, 'success', result)
+    } catch (error) {
+        response(res, 400, error.message, [])
     }
 })
 

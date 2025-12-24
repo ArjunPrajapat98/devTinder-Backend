@@ -136,10 +136,16 @@
 - Write a review reqeust POST Api with proper validation and corner cases.
 - Thought proccess of POST API is different and Thought proccess of GET API is different
 
+<!-- reference to the UserModal -->
 
+## connectRequestRouter
+- POST /request/send/interested/:id
+- POST /request/send/ignore/:id
+- POST /request/review/accept/:id
+- POST /request/review/reject/:id
 
-- all master list api firm id changes done
-- firm details page back button changes done,
-- all master add with add new issue fix,
-- add service remainder, remainder date issue fix,
-- sprints issue's work in progress,
+## userRouter
+- GET /user/request/received
+- GET /user/matchedConnection
+- GET /user/feed
+
