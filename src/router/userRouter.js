@@ -78,8 +78,8 @@ userRouter.get('/feed', userAuth, async (req, res) => {
 userRouter.get('/getAllUsers', async (req, res) => {
     try {
         let user = await Connections.find({})
-            .populate('fromUserId', 'firstName lastName')
-            .populate('toUserId', 'firstName lastName')
+            .populate({ path: "fromUserId", select: "firstName" })
+            .populate({ path: "toUserId", select: "firstName" })
 
         if (!user?.length) {
             res.status(404).send('User not found')

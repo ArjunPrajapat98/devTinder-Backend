@@ -157,4 +157,8 @@ Shorthand populate sirf simple cases ke liye hota hai.
 Best for chaining populate
 let user = await UserModal.find({})
 .populate({ path: "fromUserId", select: "firstName" })
-.populate({ path: "toUserId", select: "firstName" })
+.populate({ 
+		path: "toUserId", 
+		select: "firstName" 
+		populate: { path: 'supplier_id', select: 'name' }
+	})
