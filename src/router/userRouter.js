@@ -75,6 +75,21 @@ userRouter.get('/feed', userAuth, async (req, res) => {
     }
 })
 
+userRouter.get('/getAllUsers', async (req, res) => {
+    try {
+        let user = await Connections.find({})
+            .populate('fromUserId', 'firstName lastName')
+            .populate('toUserId', 'firstName lastName')
+
+        if (!user?.length) {
+            res.status(404).send('User not found')
+        }
+        response(res, 200, 'success', user)
+    } catch (error) {
+        response(res, 400, 'error', [])
+    }
+})
+
 userRouter.get('/userByEmail', async (req, res) => {
     let email = req?.body?.email;
     try {

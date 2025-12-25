@@ -149,3 +149,12 @@
 - GET /user/matchedConnection
 - GET /user/feed
 
+Q: Difference between populate array vs chained populate?
+Answer: Array populate ek hi call me multiple relations populate karta hai, cleaner code ke liye.
+Chained populate zyada flexible hota hai, deep or conditional populate ke liye use hota hai.
+Shorthand populate sirf simple cases ke liye hota hai.
+
+Best for chaining populate
+let user = await UserModal.find({})
+.populate({ path: "fromUserId", select: "firstName" })
+.populate({ path: "toUserId", select: "firstName" })
