@@ -41,12 +41,37 @@ userRouter.get('/match-connection', userAuth, async (req, res) => {
     }
 })
 
-userRouter.get('/feed', async (req, res) => {
+userRouter.get('/feed', userAuth, async (req, res) => {
     try {
-        const list = await UserModal.find({});
-        res.send(list);
+        let logedInUser = req.user._id;
+        let page = req.query.page || 1;
+        let limit = req.query.limit || 10;
+        let skip = (page - 1) * limit
+
+        const connectionUsers = await Connections.find({
+            $or: [
+                { fromUserId: logedInUser },
+                { toUserId: logedInUser },
+            ]
+        }).select("fromUserId toUserId")
+
+        const hideUsers = new Set();
+
+        connectionUsers.forEach((el) => {
+            hideUsers.add(el.fromUserId.toString());
+            hideUsers.add(el.toUserId.toString());
+        })
+
+        const users = await UserModal.find({
+            $and: [
+                { _id: { $nin: Array.from(hideUsers) } },
+                { _id: { $ne: logedInUser } }
+            ]
+        }).skip(skip).limit(limit);
+
+        response(res, 200, 'success', users)
     } catch (error) {
-        res.status(400).send('something went wrong')
+        response(res, 400, error.message, [])
     }
 })
 
