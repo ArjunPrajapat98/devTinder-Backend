@@ -228,7 +228,7 @@ Ignore, Interested, Accept, Reject
 	- enble the port no. 7777 of your instance
 	- Go to instance details security section > security group > inbound rules 
 	- edit inbound rules > add rule and save the rule
-	- while terminal is working so ip address url is working , if terminal is close so ip address url is not working , it same behave like a local project terminal, we want 24/7 working backend,
+	- while terminal is working so ip address url is working , if terminal is close so ip address url is not working , it behave same like a local project terminal, we want 24/7 working backend,
 	- npm install pm2 -g (process manager)
 	- pm2 start npm -- start (start node project with the help of pm2)
 	- pm2 logs (check all logs if you backend is not online so use pm2 logs and check status)
