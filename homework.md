@@ -204,3 +204,37 @@ Ignore, Interested, Accept, Reject
 - disconnect machine use command = exit
 - install node version on aws machine, "Note : Version should be same on local & aws machine"
 - git clone frontend & backend
+	# Frontend deployment steps
+	- deploy project first frontend
+	- go into and install dependency , npm i
+	- npm run build
+	- install nginx (nginx gives http server), 
+		sudo apt update , 
+		sudo apt install nginx , 
+		sudo systemctl start nginx , 
+		sudo systemctl enable nginx
+	- copy paste from dist(build files) to /var/www/html/ using this command,
+	- sudo scp -r dist/* /var/www/html/
+	- go to instance details Public IPv4 address 13.60.192.167
+	- enble the port no. 80 of your instance
+	- Go to instance details security section > security group > inbound rules 
+	- edit inbound rules > add rule and save the rule
+
+	# Backend deployment steps
+	- in your local code , you push some changes
+	- in aws server machine, inside you project take pull first so updated changes comes in aws server,
+	- npm start, start backend project on aws machine and check database connected & server is working,
+	- allowed ec2 instance public ip on mongodb server , not use allow access from everywhere use aws Public IPv4 address 13.60.192.167
+	- enble the port no. 7777 of your instance
+	- Go to instance details security section > security group > inbound rules 
+	- edit inbound rules > add rule and save the rule
+	- while terminal is working so ip address url is working , if terminal is close so ip address url is not working , it same behave like a local project terminal, we want 24/7 working backend,
+	- npm install pm2 -g (process manager)
+	- pm2 start npm -- start (start node project with the help of pm2)
+	- pm2 logs (check all logs if you backend is not online so use pm2 logs and check status)
+	- pm2 flush procces_name
+	- pm2 list (list of proccess)
+	- pm2 stop procces_name
+	- pm2 delete procces_name
+	- pm2 start npm --name "devTinder-backend" -- start
+	-
