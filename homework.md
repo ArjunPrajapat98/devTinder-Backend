@@ -17,7 +17,7 @@
 - install postman app and make a workspace/collection > test api call
 - write logic to handle get, post, patch, delete api calls and test them on postman
 - explore routing and use of ?, +, (), * in the routes
-- use of regex in routes /a/, /.*fly$/ , ex. app.get(/a/, (req, res) => ....
+- use of regex in routes /a/, /.*fly$/ , ex. app.get(/a/, (req, res) => ....)
 - Reading the query params in the routes ex. /user?id=123&userId=1001
 - Reading the dynamic routes ex. /user/1001
 - app.use allows all types of request , but app.get, app.post allow only one request,
