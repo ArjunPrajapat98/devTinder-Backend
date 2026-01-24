@@ -1,10 +1,19 @@
 import express from 'express';
 import { connectDB } from './database/database.js'
+import { UserModal } from './modals/userModal.js';
 
 const app = express();
+app.use(express.json());
 
-app.use('/test', (err, req, res, next) => {
-    res.send(err)
+app.post('/signup', async (req, res) => {
+    try {
+        let userInstance = new UserModal(req.body);
+        await userInstance.save();
+
+        res.send(userInstance);
+    } catch (error) {
+
+    }
 })
 
 connectDB()
