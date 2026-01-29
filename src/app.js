@@ -1,20 +1,11 @@
 import express from 'express';
-import { connectDB } from './database/database.js'
-import { UserModal } from './modals/userModal.js';
+import { connectDB } from './config/database.js'
+import { authRouter } from './router/authRouter.js';
 
 const app = express();
 app.use(express.json());
 
-app.post('/signup', async (req, res) => {
-    try {
-        let userInstance = new UserModal(req.body);
-        await userInstance.save();
-
-        res.send(userInstance);
-    } catch (error) {
-
-    }
-})
+app.use('/auth', authRouter);
 
 connectDB()
     .then((res) => {
