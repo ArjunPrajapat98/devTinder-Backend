@@ -17,7 +17,7 @@
 - install postman app and make a workspace/collection > test api call
 - write logic to handle get, post, patch, delete api calls and test them on postman
 - explore routing and use of ?, +, (), * in the routes
-- use of regex in routes /a/, /.*fly$/ , ex. app.get(/a/, (req, res) => ....
+- use of regex in routes /a/, /.*fly$/ , ex. app.get(/a/, (req, res) => ....)
 - Reading the query params in the routes ex. /user?id=123&userId=1001
 - Reading the dynamic routes ex. /user/1001
 - app.use allows all types of request , but app.get, app.post allow only one request,
@@ -61,14 +61,14 @@
 - User.findOne with duplicate email ids, which object returned ?
 - API - get user by email id,
 - API - get user by id,
-- API - Feed API - get all the users from the database
+- API - get all the users from the database
 - Create a delete user api
 - difference between post, put and patch api ?
 - API - Update API - update a user
 - use findIdAndUpdate method & explore options in method
 - explore the mongoose ducumentation for the models methods
 - Update the user with email id, ex. use updateOne method,
-- What is $set, $inc, $push, $pull, $unset methods ?
+- What is $set, $inc, $push, $pull, $unset methods ? use official doc https://www.mongodb.com/docs/manual/reference/mql/query-predicates/logical/
 
 - Explore schema type options from the documentation
 - add requierd, minLength, maxLength, and lowercase, min.... 
