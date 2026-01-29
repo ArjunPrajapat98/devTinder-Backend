@@ -75,8 +75,12 @@ export const loginController = async (req, res) => {
 
 export const logoutController = async (req, res) => {
     try {
-        res.cookie()
-        res.send('success')
+        await jwt.sign({ _id: req?.user?._id }, privateKey, { expiresIn: '0d' })
+        res.cookie("token", null, { expires: new Date(Date.now()) });
+        res.status(200).json({
+            message: 'User Logout successfully',
+            success: true
+        })
     } catch (error) {
         res.status(500).json({
             message: error?.message,
