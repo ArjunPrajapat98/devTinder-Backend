@@ -238,3 +238,57 @@ Ignore, Interested, Accept, Reject
 	- pm2 delete procces_name
 	- pm2 start npm --name "devTinder-backend" -- start
 	-
+
+
+
+	<!-- {
+  "firstName": "Arjun",
+  "lastName": "Prajapat",
+  "email": "arjun.prajapat@gmail.com",
+  "password": "Arjun@123",
+
+  "age": 25,
+  "isActive": true,
+
+  "role": "USER",
+
+  "skills": ["Node.js", "MongoDB", "React"],
+
+  "address": {
+    "street": "MG Road",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "pincode": "452001"
+  },
+
+  "preferences": {
+    "theme": "dark",
+    "language": "en",
+    "notifications": "enabled"
+  },
+
+  "metadata": {
+    "source": "web",
+    "utm_campaign": "dec_signup",
+    "referralCode": "REF123"
+  },
+
+  "walletBalance": "1500.75",
+
+  "createdBy": "6650b89c9a3a4e21c8a9f123",
+
+  "lastLogin": "2025-03-10T08:30:00.000Z",
+
+  "loginHistory": [
+    {
+      "ip": "103.21.45.12",
+      "device": "Chrome on Linux",
+      "loggedAt": "2025-03-10T08:30:00.000Z"
+    },
+    {
+      "ip": "192.168.1.5",
+      "device": "Mobile App (Android)",
+      "loggedAt": "2025-03-08T18:12:00.000Z"
+    }
+  ]
+} -->

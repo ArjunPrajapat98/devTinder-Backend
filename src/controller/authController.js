@@ -58,7 +58,7 @@ export const loginController = async (req, res) => {
 
         const token = await jwt.sign({ _id: userExist?._id }, privateKey);
 
-        res.cookie(token);
+        res.cookie("token", token);
 
         res.status(200).json({
             message: `${userExist?.firstName} login successfully`,

@@ -1,11 +1,18 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
+
 import { connectDB } from './config/database.js'
 import { authRouter } from './router/authRouter.js';
+import { profileRouter } from './router/profileRouter.js';
+import { connectionRouter } from './router/connectionRouter.js';
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/auth', authRouter);
+app.use('/profile', profileRouter);
+app.use('/request', connectionRouter);
 
 connectDB()
     .then((res) => {
