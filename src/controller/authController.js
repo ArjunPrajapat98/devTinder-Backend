@@ -56,7 +56,7 @@ export const loginController = async (req, res) => {
             })
         }
 
-        const token = await jwt.sign({ _id: userExist?._id }, privateKey);
+        const token = await userExist.getJWT();
 
         res.cookie("token", token);
 
@@ -65,6 +65,18 @@ export const loginController = async (req, res) => {
             success: true,
             result: { token }
         })
+    } catch (error) {
+        res.status(500).json({
+            message: error?.message,
+            success: false
+        })
+    }
+}
+
+export const logoutController = async (req, res) => {
+    try {
+        res.cookie()
+        res.send('success')
     } catch (error) {
         res.status(500).json({
             message: error?.message,
