@@ -126,7 +126,7 @@
 - Send connection Request API
 - Proper validation of data
 - Think about all corner cases , Always think about corner cases,
-- Schema.pre("save") function,
+- Schema.pre("save", function(){}),
 - Read more about logical querys ,https://www.mongodb.com/docs/manual/reference/mql/query-predicates/logical/
 - Read this article about compond index ,https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
 - Read more about indexs in mongodb
