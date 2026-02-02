@@ -4,10 +4,12 @@ const connectionSchema = new mongoose.Schema({
     fromUserId: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Form User id is requierd'],
+        ref: 'UserModal'
     },
     toUserId: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'To User id is requierd'],
+        ref: 'UserModal'
     },
     status: {
         type: String,

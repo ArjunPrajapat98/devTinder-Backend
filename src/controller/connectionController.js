@@ -1,4 +1,4 @@
-import { sendConnectionValidation } from "../middleware/errorSchema.js";
+import { reviewConnectionValidation, sendConnectionValidation } from "../middleware/errorSchema.js";
 import { Connections } from "../modals/connectionModal.js";
 import { UserModal } from "../modals/userModal.js";
 
@@ -40,6 +40,45 @@ export const sendConnectionController = async (req, res) => {
             result
         })
 
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            success: false
+        })
+    }
+}
+
+export const reviewConnectionController = async (req, res) => {
+    try {
+        let fromUserId = req?.user?._id;
+        let status = req.params.status;
+        let toUserId = req.params.id;
+
+        reviewConnectionValidation({ fromUserId, toUserId, status })
+        const isExistToUser = await UserModal.findById(toUserId);
+        if (!isExistToUser?._id) {
+            return res.status(400).json({
+                message: 'Invalid User Id',
+                success: false
+            })
+        }
+
+        const user = await Connections.findOne({
+            fromUserId: toUserId,
+            toUserId: fromUserId,
+            status: "Interested"
+        })
+        if (user?._id) {
+            user.status = status;
+            let updateUser = await user.save();
+
+            res.status(200).json({
+                message: 'success',
+                result: updateUser
+            })
+        } else {
+            throw new Error('User not found')
+        }
     } catch (error) {
         res.status(500).json({
             message: error.message,

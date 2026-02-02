@@ -5,6 +5,7 @@ import { connectDB } from './config/database.js'
 import { authRouter } from './router/authRouter.js';
 import { profileRouter } from './router/profileRouter.js';
 import { connectionRouter } from './router/connectionRouter.js';
+import { userRouter } from './router/userRouter.js';
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
 app.use('/request', connectionRouter);
+app.use('/user', userRouter)
 
 connectDB()
     .then((res) => {
