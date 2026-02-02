@@ -139,10 +139,13 @@
 <!-- reference to the UserModal -->
 
 ## connectRequestRouter
-- POST /request/send/interested/:id
-- POST /request/send/ignore/:id
-- POST /request/review/accept/:id
-- POST /request/review/reject/:id
+- POST /request/send/:status/:id
+		- POST /request/send/interested/:id
+		- POST /request/send/ignore/:id
+
+- POST /request/review/:status/:id
+		- POST /request/review/accept/:id
+		- POST /request/review/reject/:id
 
 ## userRouter
 - GET /user/request/received
