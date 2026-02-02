@@ -8,6 +8,7 @@ import { connectionRouter } from './router/connectionRouter.js';
 import { userRouter } from './router/userRouter.js';
 
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 
