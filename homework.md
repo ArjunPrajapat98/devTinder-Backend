@@ -191,7 +191,7 @@ let user = await UserModal.find({})
 - GET /user/matchedConnection
 - GET /user/feed
 
-Ignore, Interested, Accept, Reject
+status = Ignore, Interested, Accept, Reject
 
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
 
