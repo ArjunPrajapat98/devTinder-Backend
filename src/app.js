@@ -1,10 +1,9 @@
 import express from 'express';
+import { adminAuth } from './middleware/middileware';
 
 const app = express();
 
-const adminAuth = (req, res)
-
-app.get('/setting/:id', (req, res) => {
+app.get('/setting/:id', adminAuth, (req, res) => {
     res.status(200).send("Error")
 })
 
