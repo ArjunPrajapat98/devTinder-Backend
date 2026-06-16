@@ -40,7 +40,7 @@
 - log sentry , other service - login service , monetry service
 
 - create a free cluster on mongodb official webisite (on google, Go to mongodb atlas)
-- mongodb atlas, get a cluster url = mongodb+srv://arjun:arjun@devtinder.lpxntat.mongodb.net/
+- mongodb atlas, login mongodb atlas, get a cluster url = mongodb+srv://arjun:arjun@devtinder.lpxntat.mongodb.net/
 - install mongoose and write a database code with port listerner,
 - download the mongodb compass tool and add cluster url and connect,
 - connect your application to the cluster then database also,
