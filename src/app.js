@@ -2,14 +2,12 @@ import express from 'express';
 
 const app = express();
 
-app.use("/test", (req, res) => {
-    res.status(400).send("Hello world")
+const adminAuth = (req, res)
+
+app.get('/setting/:id', (req, res) => {
+    res.status(200).send("Error")
 })
 
-app.get('/userlist', (req, res) => {
-    res.status(200).send('This is a user list data')
-})
-
-app.listen(8100, () => {
-    console.log('Node js server started successfully')
+app.listen(3000, () => {
+    console.log('Server created successfully')
 })
