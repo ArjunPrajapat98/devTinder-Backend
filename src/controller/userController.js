@@ -1,24 +1,58 @@
 import { userModal } from "../modals/user.js"
 
-export const userController = async (req, res) => {
+export const userByEmailController = async (req, res, next) => {
     try {
-        let object = {
-            name: "Arjun",
-            age: 10
+        let { email } = req.body;
+
+        if (!email) {
+            throw new Error("email id not found")
         }
-        const userInstance = new userModal(object);
-        let updateUser = await userInstance.save();
-        console.log('updateUser', updateUser)
-        res.status(200).send(updateUser)
+
+        const user = await userModal.findOne({ email });
+        if (!user) {
+            throw new Error("invalid email id")
+        }
+
+        res.status(200).json({
+            success: true,
+            result: user
+        })
     } catch (error) {
-        res.status(500).send('Error')
+        next(error)
     }
 }
 
-export const defaultController = (req, res) => {
+export const userByIdController = async (req, res, next) => {
     try {
-        res.status(200).send('This is a default controller')
+        let { _id } = req.body;
+        if (!_id) {
+            throw new Error("invalid user id")
+        }
+
+        const user = await userModal.findById(_id);
+        if (!user) {
+            throw new Error("user not found")
+        }
+
+        res.status(200).json({
+            success: true,
+            result: user
+        })
+
     } catch (error) {
-        res.status(500).send('Error')
+        next(error)
+    }
+}
+
+export const allUsersController = async (req, res, next) => {
+    try {
+        let users = await userModal.find({});
+
+        res.status(200).json({
+            success: true,
+            result: users
+        })
+    } catch (error) {
+        next(error)
     }
 }
