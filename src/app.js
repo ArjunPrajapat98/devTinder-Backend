@@ -4,10 +4,12 @@ import { adminAuth } from './middleware/middileware.js';
 import { userRouter } from './router/userRouter/userRouter.js';
 import { authRouter } from './router/authRouter/authRouter.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/auth', authRouter)
 app.use('/user', userRouter)

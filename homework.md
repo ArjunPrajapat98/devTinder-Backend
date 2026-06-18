@@ -98,7 +98,7 @@
 				server validate the token ----> if token valid then give response otherwise invalid token
 
 - add a static token in login api and send staic token to the user back, (res.cookie)
-- create a GET Profile API , get a static token in profile api, (req.cookie)
+- create a GET Profile API , get a static token in profile api, (req.cookies)
 - npm i cookie-parser
 - In login api , create a jwt token and send it to user in cookies (install jsonwebtoken)
 - read the cookie inside your profile API and find the logged in user,

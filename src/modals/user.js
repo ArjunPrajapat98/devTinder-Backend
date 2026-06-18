@@ -16,6 +16,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     }
-})
+}, { timestamps: true })
 
 export const userModal = mongoose.model('userModal', userSchema)

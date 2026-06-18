@@ -1,4 +1,5 @@
 import { userModal } from "../modals/user.js"
+import jwt from "jsonwebtoken";
 
 export const userByEmailController = async (req, res, next) => {
     try {
@@ -91,6 +92,17 @@ export const updateUserController = async (req, res, next) => {
         res.status(200).json({
             success: true,
             result: updatedUser
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const userProfileController = async (req, res, next) => {
+    try {
+        res.status(200).json({
+            success: true,
+            result: req.user
         })
     } catch (error) {
         next(error)
