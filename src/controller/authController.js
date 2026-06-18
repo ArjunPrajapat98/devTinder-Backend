@@ -4,7 +4,7 @@ export const signupController = async (req, res, next) => {
     try {
         let { name, age, email, password } = req.body;
 
-        const userInstance = new userModal({ name, age, email, password });
+        const userInstance = new userModal.create({ name, age, email, password });
 
         const userObject = await userInstance.save();
 
