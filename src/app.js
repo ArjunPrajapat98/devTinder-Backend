@@ -6,6 +6,7 @@ import { authRouter } from './router/authRouter/authRouter.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import { connectionRouter } from './router/connectionRouter/connectionRouter.js';
+import { queryRouter } from './router/queryRouter/queryRouter.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/connections', connectionRouter)
+app.use('/query', queryRouter)
 app.use(errorHandler);
 
 connectDB().then(() => {
