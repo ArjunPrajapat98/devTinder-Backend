@@ -238,3 +238,34 @@ Ignore, Interested, Accept, Reject
 	- pm2 delete procces_name
 	- pm2 start npm --name "devTinder-backend" -- start
 	-
+
+<!-- Tinder App -->
+## authRouter
+- POST /signup
+- POST /login
+- POST /logout
+
+## profileRouter
+- GET    /profile/view
+- PATCH  /profile/edit
+- PATCH  /profile/password
+
+## connectRequestRouter
+- POST /request/send/interested/:endUser
+- POST /request/send/ignore/:endUser
+- POST /request/review/accept/:endUser
+- POST /request/review/reject/:endUser
+
+## userRouter
+- GET /user/request/received
+- GET /user/matchedConnection
+- GET /user/feed
+
+<!-- User Management API -->
+- POST /create (create user)
+- POST /list (get all list, using status, search, get all active users, get all search users, with pagination)
+
+<!-- Product Management API -->
+- Get products between price range,
+- Find products having stock
+- Sort by highest rating
