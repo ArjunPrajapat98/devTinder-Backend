@@ -12,6 +12,8 @@ import { productManagementRouter } from './router/productManagementRouter/produc
 import { dashboardRouter } from './router/dashboardRouter/dashboardRouter.js';
 import { ordersRouter } from './router/ordersRouter/ordersRouter.js';
 
+import './utils/cronjob.js'
+
 const app = express();
 
 app.use(express.json());
@@ -20,7 +22,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/connections', connectionRouter)
-app.use('/query', queryRouter)
+app.use('/query', queryRouter) 
 app.use('/userManagement', userManagementRouter)
 app.use('/productManagement', productManagementRouter)
 app.use('/orders', ordersRouter)
