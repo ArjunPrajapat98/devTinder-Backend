@@ -9,6 +9,8 @@ import { connectionRouter } from './router/connectionRouter/connectionRouter.js'
 import { queryRouter } from './router/queryRouter/queryRouter.js';
 import { userManagementRouter } from './router/userManagementRouter/userManagementRouter.js';
 import { productManagementRouter } from './router/productManagementRouter/productManagementRouter.js';
+import { dashboardRouter } from './router/dashboardRouter/dashboardRouter.js';
+import { ordersRouter } from './router/ordersRouter/ordersRouter.js';
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.use('/connections', connectionRouter)
 app.use('/query', queryRouter)
 app.use('/userManagement', userManagementRouter)
 app.use('/productManagement', productManagementRouter)
+app.use('/orders', ordersRouter)
+app.use('/dashboard', dashboardRouter)
 app.use(errorHandler);
 
 connectDB().then(() => {
