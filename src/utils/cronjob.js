@@ -2,6 +2,8 @@ import cron from 'node-cron';
 import { ConnectionModal } from '../modals/connections.js';
 import { endOfDay, startOfDay, subDays } from 'date-fns'
 
+
+
 // send emails to all people who got requests the previous day
 
 cron.schedule("45 53 14 * * *", async (req, res, next) => {
